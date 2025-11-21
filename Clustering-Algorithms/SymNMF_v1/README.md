@@ -32,7 +32,7 @@
 This is an implementation of a clustering algorithm based on symmetric non-negative matrix factorization.
 It also includes code to compare its silhouette score aginst the KMeans algorithm (first K vectors are chosen as centroids deterministically) score.
 
-Cousr: Software Project
+Course: Software Project
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Preperations
