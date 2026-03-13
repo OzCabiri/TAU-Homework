@@ -2,7 +2,7 @@
 
 <br/>
 <div align="center">
-<h3 align="center"><a href="https://github.com/OzCabiri/SymNMF_v1">SymNMF</a></h3>
+<h3 align="center"><a href="https://github.com/OzCabiri/TAU-Homework/edit/main/Clustering-Algorithms/SymNMF_v1/README.md">SymNMF</a></h3>
   <p align="center">
     Implementation of a clustering algorithm based on symmetric non-negative matrix factorization in Python and C.
   </p>
