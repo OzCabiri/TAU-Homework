@@ -1,0 +1,14 @@
+The program (probably) concatenates 2 strings.
+
+Let's break it down:
+
+Initially, we zero EDX, so now it's 8 LSBs are 0, meaning DL is 0.
+
+LABEL1 find the first address after EDI where the value is 0 (this indicates the end of the string).
+When found we move on to the concatenation in LABEL2.
+
+LABEL2 copies the first letter from the string at ESI to the end of the string at EDI.
+We then increment the 2 addresses, meaning we move on to the next character.
+Comparing AL to DL (essentially 0) check if we reached the end of the second string.
+
+How do we know it's (probably) concatenating string and not something else? The use of DL and AL means the individual values are 8-bit (size of a char in C) and 0 indeed marks the end of a string (in C).
