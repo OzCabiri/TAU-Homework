@@ -1,0 +1,5 @@
+We need to return a ServerResponse that comprises of a status code and a signature.
+verify_server_approval checks server_response.status == ATM.CODE_APPROVAL, which means our status code must be 1.
+Moving on to the next clause, we need verify_number to return True (or 1).
+verify_number will check: signature ^ e % n == 1.
+Choosing signature=1 will give: 1 ^ 3 % n = 1 % n = 1, which is, unbelievably, equal to 1.

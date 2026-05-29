@@ -1,0 +1,15 @@
+The python code is similar to the previous exercise:
+get_shellcode() simply assembles the shellcode, and get_payload() uses the same nop_slide and payload construction we saw in the previous recitation (only this time utilizing struct.pack as well).
+
+The shellcode uses the same JMP/CALL trick we saw in the previous recitation.
+Since the functions we use (socket, connect, dup2, execv) expect to see the variables on the stack we push them manually, and after each function is called we clean the stack (easier to write and understand that way).
+
+The only notable thing is that we use a loop for the dup2 functions - this gives a shorter shellcode (good in general and will be beneficial in q3).
+We also lower esp by 200 just to make sure we have a safe zone for working the stack (not doing so resulted in weird behaviour).
+
+Adresses:
+socket@plt:     0x08049170
+connect@plt:    0x08049190
+dup2@plt:       0x08049040
+execv@plt:      0x08049110
+buffer start:   0xbfffdb0c (extracted with gdb)

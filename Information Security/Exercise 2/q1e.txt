@@ -1,0 +1,8 @@
+My algorithm build the key byte by byte.
+
+We start with an initial key of all zeroes. Then, for each byte, we iterate over all possible 256 options and update our key if the score was better than before.
+
+If we find a better performing byte, then is increased the plaintext score, meaning it gives "better English".
+It should work because we chage 1 byte at a time, and correct bytes are not dependant on each other (it's a simple XOR by char location - changing a single byte doesn't change how the other bytes encrypt or decrypt their part of the text).
+
+By choosing the bytes that give the "best English" we can assume we found the correct key.

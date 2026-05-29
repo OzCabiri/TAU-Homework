@@ -1,0 +1,11 @@
+After opening the file in IDA we got a tree of the code.
+Finding the strings helped understand which part of the code we're in (good message vs bad message).
+We then see that after the code opens the file it calls validate.
+in Validate we see a logic resembling a loop, and in that loop we xor values with the i+2 position.
+In the start of the validate we can see we're pushing values into the stack - the 1st and 2nd chars of the text.
+We then use them to end the loop and comparison as well for a good message.
+Note the initialization of 0x8C to be xor with at the start.
+
+Further details about what some lines do are in the ida database created as comments.
+
+*Added check in loop because 06.msg gives index out of range.

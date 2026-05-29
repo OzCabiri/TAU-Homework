@@ -1,0 +1,5 @@
+buff in check_password is stored in [ebp-32] (We can see "Thisisasalt" hard coded in the program).
+This means that buff will end at [ebp-13].
+We can also see, that auth is stored in [ebp-12]
+
+"Thisisasalt" has 10 chars, and since we can choose a password with length 10 (the code only checks if len(pass)>10) we can overflow the buffer and overwrite '1' in [ebp-12], negating the requirement of hash==PASSWORD.

@@ -1,0 +1,2 @@
+Unlike our previous solution, we will not avoid the loop, but only force the end statement.
+We will simply reuse our code from q1a to calculate the final xor value, and force data[1]=xor_value.

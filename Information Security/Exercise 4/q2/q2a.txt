@@ -1,0 +1,3 @@
+We can see that buff is stored from [ebp-73] to [ebp-9]. Then we see that the code pops ebx, edi, ebp. This means that right after them we have the return address.
+
+We'll fill the buff (from [ebp-63] to [ebp-9]), then we'll override ebx, edi, ebp (3 * 32bit), then we'll override the return address. strcat will do it for us because there is no password length check anymore.

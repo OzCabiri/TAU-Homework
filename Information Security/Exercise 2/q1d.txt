@@ -1,0 +1,11 @@
+To find the correct plaintext, we will need to decrypt the ciphertext with all possible keys and then check their scores.
+
+Since a byte is 8 bits, and our key is in bytes, when converting to intgers we have 256^key_length possible keys (2^8 ^ key_length). We incrment our counter (i) by 1 in each iteration, and convert it to bytes using Python's built in function to_bytes(key_length, byteorder='big'). By specifying the key_length we padd it with zeros to ensure wanted behaviour in decrypt(). byteorder was chosen to be 'big', but since we go over all the possible keys, it doesn't matter.
+
+We them create a new RKC with our key (i), and we can decrypt the ciphertext.
+
+Analyze it's socre and if it's the best so far, save it. Return the plaintext that received the best score.
+
+I got:
+
+"Companies spend millions of dollars on firewalls, encryption, and secure access devices and it's money wasted because none of these measures address the weakest link in the security chain: the people who use, administer, operate and account for computer systems that contain protected information."

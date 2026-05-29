@@ -1,0 +1,2 @@
+Following our previous solution in q1a, the most trivial solution will be to skip the for loop entirely and force the result, meaning, force the intial xor byte to be equal to data[1].
+In order to skip the loop, we need to set data[0]=0, and in order to force the check in the end, since we cannot change the initial xor byte, we will change data[1]=initial_xor_byte.

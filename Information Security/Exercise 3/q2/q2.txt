@@ -1,0 +1,47 @@
+When looking at the code we have a samll nop section before the 'printf' and a big nop section before the code that uses 'fgets'.
+
+The small one will be 'patch1', and the big one will be 'patch2'.
+Let's also denote the section that uses 'fgets' as 'get_line', and the section that uses 'printf' as 'print_line'.
+
+The flow of the code means that we will encounter patch2 first, so the first line will be a jump to get_line.
+The rest will check if the first 2 chars are "#!", if so it will push the command (starting address, just after '!') into the stack so the system's 'system' method can use it.
+We then call system(), and jump to after printf.
+
+patch1 will just contain a jump to the 2nd line of patch2 (we want to avoid the initial jump to get_line). Essentially a simple redirection.
+
+Regarding the python code, we will just replace the bytes in the positions we talked about with patch1.asm and patch2.asm.
+#===========================================#
+Notes:
+* I didn't want to use eax, because we might override it and it is still used right before printf.
+* We'll use ecx for the line position in memory (closest thing to a counter right now).
+* We'll use edx for storing and comparing to '#' and '!', becuase it's not supposed to be used.
+* '#'=0x23, "!"=0x21.
+
+Addresses arithmetic:
+
+    patch1 1st line address: 0x08048633
+    patch2 2nd line address: 0x080485D2 (jmp is 5 bytes long)
+        patch1's jump: 0x080485CE - 0x08048633 = -0x61
+        
+    patch2 1nd line address: 0x080485CD
+    get_line address: 0x08048662
+        patch2's 1st jump: 0x08048662 - 0x080485CD = 0x95
+        
+    patch2 starting address: 0x080485CD ***
+    1st line after patch1 address: 0x08048638
+        1st jnz: 0x08048638 -0x080485CD = 0x6B
+        
+    patch2 starting address: 0x080485CD ***
+    line after printf in print_line address: 0x0804864E
+        patch2's last jump: 0x0804864E - 0x080485CD = 0x81
+        
+    patch2 starting address: 0x080485CD ***
+    system() method address: 0x8048460 ****
+        call: 0x8048460 - 0x080485CD = 0x1AA3
+
+        
+This is short! The artihmetic just makes it look longer than it is.
+
+*** Who knew that the assembler wouldn't treat jnz addresses as relative, and instead calculate it from the start of the patch (at 5CD)? Not me. Totally didn't waste hours on this.
+
+**** So IDA functions tab actually had the GOT of system, and not the actual address... It's fine, I fixed it. I'm not mad. I'm totally calm. It's over now. This is fine.

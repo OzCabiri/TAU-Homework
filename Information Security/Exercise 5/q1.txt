@@ -1,0 +1,4 @@
+We can see that in handle_connection the buffer is set to a size of 1536, meaning it is vulnerable to a buffer overflow.
+
+Looking in IDA we can see that the program stores the buffer in [ebp-1548].
+So we know we can use a long message (1548 bytes + 4 for EBP + 4 for EIP) to overwrite the return address.

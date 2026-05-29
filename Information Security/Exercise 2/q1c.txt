@@ -1,0 +1,22 @@
+Initially we set a score to 0.
+
+Since there are on average 100 characters in a sentence (Google told me), we go over each char in the plaintext and check to which category it belongs (by using ord(char)):
+
+Lowercase:      about 80%
+Uppercase:      about 2% (surprisingly)
+Whitespace:     about 10% (more surprisingly)
+Comma/period:   about 5%
+Other symbols:  the rest
+
+A char that doesn't belongs to these categories is possibly definitley not in English.
+
+Sum the scores, normalize by the text length, and return the score in [0,1]
+
+NOTES:
+1. Technically the score is in [0,0.8], but the assignment didn't ask for a specific range, only "More English, more score".
+
+2. when checking if a char is a symbol we check a range of characters. In that range ',' and '.' are present. Since I check whether a char is a comma or a period before checking if it's a symbol, I decided splitting the range would be unproductive, becuae the previous section of code will be executed anyway. This is cleaner logically and also correct coding wise (assuming my heuristic is correct to begin with).
+
+3. Score distribution is slightly based on information I found about character frequency in a sentence, mainly about lower and upper case letters. The rest had moer of 'range of values', so I picked a socre for each category on the premise that it's my code so yeah...
+
+4. Thank you asciitable.com for your assistance.

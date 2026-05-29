@@ -1,0 +1,21 @@
+encode:
+We will simply iterate over the data, check each byte for validity, xor the non-complying bytes amd add the index to a list.
+
+
+get_decoder_code:
+First we need to save 0xff in some register. Since 0xff > 0x7f, we will use arithmetic to calculate it.
+0xff = 255, so it is divisible by 3. 255/3 = 85 = 0x55. We will add it 3 times to receive 0xff.
+
+Now, because our encoded shellcode is shorter than 128 (0x80) all of our indices will also be lower than 0x80, so no need to take that into account.
+
+In our loop, we will simply add "XOR byte ptr [eax+i], bl\n" to the code (bl and not ebx because we need 1 byte).
+
+
+get_ascii_shellcode:
+After encoding and getting the decoder, we want eax to point to the encoded shellcode, which will be at esp - len(encoded_shellcode) - len(new return address). 
+Since len(encoded_shellcode) = 112, and len(new return address) = 4, we need to substract 116.
+We can't do "sub eax 0x74" directly, so we'll push 0x74, sub eax, [esp] and then clear the stack with pop ecx.
+
+
+get_payload:
+the same as q2, only instead of nop (0x90) we use inc ecx (0x40) because ecx isn't used by us for something important..

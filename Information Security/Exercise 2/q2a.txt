@@ -1,0 +1,3 @@
+Since we have access to the public RSA key we can encrypt our PIN in the same way.
+Since we only need to check 10^4 options, this is rather trivial to brute force.
+We'll encrypt all options, and since the RSA implemented here is deterministic then we will eventually get the same encrypted original PIN.

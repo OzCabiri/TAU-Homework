@@ -1,0 +1,3 @@
+Looking at the code, we see that the return value is set in each flow of code after the message printing. This means that we can print "invalid message" and then change the return value to 0, without interfering with the flow of the code.
+
+We simply need to change the op in offset 0x6DD from "mov eax, 1" to "mov eax, 0", which simply means changing tha value at 0x6DE to 0.

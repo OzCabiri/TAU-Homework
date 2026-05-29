@@ -1,0 +1,9 @@
+After trying the brute force method like in q2a, I have found it takes a lot of time - more than I have patience for.
+Reviewing the ATM code apparently the developers were paranoid, but they chose e=3.
+Since when we use RSA, we do credit_card^e, and out credit card is no bigger than 10^9, following basic math we get that credit_card <= 10^(9*3) = 10^27 < 2^(4*27) = 2^108. The 'n' in the RSA key is 2048 bit, so for credit_card >= n we need the last 1940 (2048-108) bits are zero, which is a 1:2&1094 chance - so... nah.
+
+This means that most probably, our n is bigger then credit_card^e, so performing modulo n does nothing.
+-> credit_card^e % n = credit_card^e.
+So extracting the cube root of the "encrypted credit card" will yield the original card.
+
+* Due to python arithmetic, we can get a rounding error, so we round the result.

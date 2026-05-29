@@ -1,0 +1,5 @@
+Looking at the validate function, we see this line: cmp al, [ebp-9].
+This line (as we stated in the comments on ida), does the compatison at the end statement, essentially deciding if the result is correct or not.
+We want to force a comparison that is always true so we will replace it with: cmp al, al.
+Original op code is: 3A 45 F7, and the new op code is 3A C0.
+Since they are not the same length, we will pad the new op code with nop (90).
