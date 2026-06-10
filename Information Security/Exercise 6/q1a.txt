@@ -1,0 +1,2 @@
+The buffer in check_password() starts at ebp-142 and is filled with "Thisisasalt", so we need to fill the stack from ebp-131 + 4 bytes for the ebp + 4 bytes for the return address.
+Total = 139 bytes.

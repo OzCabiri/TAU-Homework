@@ -1,0 +1,18 @@
+We found the addresses for AUTH and the CHECK_PASSWORD return address with gdb and updated them in addresses.py.
+
+The function will find 3 seperate gadgets:
+POP {0}
+POP{1}
+MOV [{0}], {1} (We find this first, because finding POP {something} should be easier than MOV)
+
+Then we will construct the code as follows:
+
+1. 135 bytes of junk to fill the stack and override ebp
+2. POP {0}
+3. auth address (similar to the /bin/sh trick, it will load into {0})
+4. POP {1}
+5. 1 (will load the value 1 to {1})
+6. MOV [{0}], {1} (copy 1 to auth's address
+7. original CHECK_PASSWORD return address
+
+If we coulnd't find a suitable ROP chain, we will return None and be sad.

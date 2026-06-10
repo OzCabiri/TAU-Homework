@@ -1,0 +1,5 @@
+As seen in class we find system with 'print system' in gdb ($1 = {int (const char *)} 0xb7b4f040 <__libc_system>).
+
+With 'find 0xb7c7c000, 0xb7c9fb98, "/bin/sh"' in gdb we get 0xb7c96338.
+
+Now we follow the demo as seen in class: append the offset and system_address, add 4 bytes for the exit_address (we use junk data for the moment, as seen in class) and then append bin_sh_address.

@@ -1,0 +1,27 @@
+The ROP chain will do as follows:
+1. 131 junk bytes - fill the stack untill we reach ebp.
+2. addres of PUTS
+3. addres of PUTS
+4. add esp, 4
+5. string's address
+6. pop esp
+7. address of step 3
+8. the actual message
+
+The flow goes like this:
+
+CHECK_PASSWORD calls 'pop ebp' which write PUTS' address into ebp (slot 2). Then it does 'ret', jumping to PUTS (the address in slot 3).
+
+Now PUTS executes. It expect slot 4 to be it's return adderss, and slot 5 to be it's argument. This means that it will correctly find our strings address and print it. When finished it will return to slot 4.
+
+Slot 4 will do esp+4, advancing it past slot 5 (the string's address so we won't try and execute it as an op) to slot 6.
+
+Slot 6 will no do pop esp, which will write the value from slot 7 to the esp. This will cause the esp to go back to slot 3 on the stack and 'ret' will execute PUTS again.
+
+a. The loop works after we call puts because it starts with 'push ebp', which will save the PUTS' address on the stack. When finished it will 'pop ebp' which will restore the stack to it's intended structure and ebp's value (address of PUTS). All other values in PUTS are used in lower addresses so they will not overwrite anything from slot 3 onwards, which are the important parts.
+
+b. As stated above, we skip 4 bytes to avoid the string's address. Failing to do so, will result in the CPU trying to parse it as an op.
+
+c. The string was included in the end of the ROP, so gadgets can be executed cleanly in the middle of the ROP.
+
+The addresses of PUTS the string on the stack and the loop beginning were found using gdb.
