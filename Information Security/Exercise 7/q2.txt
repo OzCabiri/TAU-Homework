@@ -1,0 +1,13 @@
+To find check_if_virus's address we do the same as in previous assignments:
+We open antivirus in gdb, run it (with break main) to load the libraries, and then do 'print check_if_virus'.
+
+
+The python code will simply open the binary template, find the 'unusual' sequences, and path it with the correct addresses.
+
+
+In the C code we use the same template that was shown in the recitation. In the "do your magic here" section, we use PEEKTEXT to get the 8 bytes at the address of check_if_virus.
+
+We then use bitwise operations (& to zero 3 bytes, | to flip them to our code) to insert "XOR EAX, EAX; RET".
+We do this just incase the function was really short and right after it there is viable code for another function. Unlikley, but I felt like it's the nice thing to do.
+
+Now we can use POKEDATA to insert our new word with the new code that always returns 0.

@@ -1,0 +1,2 @@
+pgrep is the easiest way to get a program's pid.
+We strip it from the newline terminator (if pid exists), and send 'kill %pid%' as payload.

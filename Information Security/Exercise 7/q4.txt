@@ -1,0 +1,6 @@
+This time in an infinite loop we'll use ptrace with SYSCALL.
+We'll then check the original eax register, since it can change whether we are entering the syscall of ending it, so by checking orig_eax we know if we were in a read call.
+
+If it's a read call, set edx to 0, to indicate that 0 bytes are to be read (I tried using eax to make the syscall skip it entirely, but this resulted in more complicated code and error messages printed in the sehll. Not very inconspicuous).
+
+The python code is the same as in the previous questions.

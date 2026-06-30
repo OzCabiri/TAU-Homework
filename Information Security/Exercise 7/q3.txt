@@ -1,0 +1,6 @@
+To find the address of the GOT entry we disassembled the code at the plt like in previous assignments.
+
+Since we need something with the same signature, is_directory is the most viable, because it too receives char* path, and will always return 0 for our virus (it's not a directory, and neither is any other file it will check).
+We find it's address with print, which should work because it's in the antivirus's code so it will not be loaded through a library.
+
+Now we replace the GOT address with the new function's address. This time we can use POKEDATA directly, because they match in size (no need to save the state of the 4th byte).
